@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Config Diff Inspector</title>
+</head>
+<body>
+    <h2>Upload Two Config Files</h2>
+
+    <form action="/compare" method="post" enctype="multipart/form-data">
+        <p>
+            File 1:
+            <input type="file" name="file1">
+        </p>
+
+        <p>
+            File 2:
+            <input type="file" name="file2">
+        </p>
+
+        <button type="submit">Compare</button>
+    </form>
+</body>
+</html>
