@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request
-
-from diff_finder.set_diff import set_compare
-from diff_finder.sequence_diff import sequence_compare
+from diff_finder.set_diff import semantic_compare
+from diff_finder.sequence_diff import structural_compare
 
 app = Flask(__name__)
+
+# Limit upload size (5MB)
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 
 
 @app.route("/")
@@ -13,7 +15,6 @@ def home():
 
 @app.route("/compare", methods=["POST"])
 def compare():
-
     file1 = request.files.get("file1")
     file2 = request.files.get("file2")
     engine = request.form.get("engine")
@@ -21,21 +22,20 @@ def compare():
     if not file1 or not file2:
         return "Both files must be uploaded", 400
 
-    if engine == "set":
-        results = set_compare(file1, file2)
+    if engine == "semantic":
+        results = semantic_compare(file1, file2)
         return render_template(
             "result.html",
-            mode="set",
-            added=results["added"],
-            removed=results["removed"]
+            diff=results["diff"],
+            engine="semantic"
         )
 
-    elif engine == "sequence":
-        results = sequence_compare(file1, file2)
+    elif engine == "structural":
+        results = structural_compare(file1, file2)
         return render_template(
             "result.html",
-            mode="sequence",
-            sequence_results=results
+            structural_html=results["html"],
+            engine="structural"
         )
 
     else:
