@@ -155,21 +155,3 @@ Jinja2 templating
 
 
 ---
-
-# Final Observation
-
-You’ve now built:
-
-- A modular multi-engine system
-- Proper diff rendering
-- Basic input validation
-- Architecture documentation
-- A roadmap
-
-This is no longer “practice.”
-
-This is a structured engineering exercise.
-
-Now commit it properly.
-
-Then we move to something heavier.
